@@ -1,0 +1,20 @@
+.signature-container {
+  border: 1px solid #7c7b7b;
+  border-radius: 10px;
+}
+.clear-button {
+  background-color: #dc3545;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  margin: 20px 20px 0px 0px;
+}
+.submit-button {
+  background-color: blue;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  margin: 20px 20px 0px 0px;
+}

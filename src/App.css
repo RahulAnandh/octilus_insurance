@@ -1,0 +1,116 @@
+.container {
+  background-color: rgb(255, 255, 255);
+  width: 40vw;
+  display: grid;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .container {
+    width: 100vw;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .container {
+    width: 100vw;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .container {
+    width: 70vw;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .container {
+    width: 60vw;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .container {
+    width: 40vw;
+  }
+}
+.heading-and-step-container {
+  margin: 0px 0px 30px 0px;
+}
+.form-container {
+  border: 1px solid blue;
+  border-radius: 10px;
+  padding: 5%;
+}
+.step-button {
+  width: 33.33%;
+  border-radius: 10px;
+  color: blue;
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+.step-button-active {
+  width: 33.33%;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  background-color: blue;
+  border: none;
+  font-size: 20px;
+}
+.previous-button-active {
+  background-color: rgb(97, 97, 98);
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  margin: 20px 0px 0px 0px;
+}
+.previous-button-active:hover {
+  background-color: rgb(60, 60, 60);
+}
+.previous-button-not-active {
+  background-color: rgb(160, 160, 159);
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  margin: 20px 0px 0px 0px;
+}
+
+.next-button-active {
+  background-color: rgb(10, 87, 242);
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  float: right;
+  font-size: 20px;
+  margin: 20px 0px 0px 0px;
+}
+.next-button-active:hover {
+  background-color: rgb(10, 67, 180);
+}
+.next-button-not-active {
+  background-color: rgb(156, 163, 235);
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  margin: 20px 0px 0px 0px;
+}
+.finish-button {
+  background-color: rgb(10, 87, 242);
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  float: right;
+  font-size: 20px;
+  margin: 20px 0px 0px 0px;
+}
+
+.form-heading {
+  text-align: center;
+}

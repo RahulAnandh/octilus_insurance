@@ -573,7 +573,6 @@ function App() {
             <FinalResultPage />
           </div>
         )}
-        {console.log("1---A", insurance)}
       </div>
     </div>
   );

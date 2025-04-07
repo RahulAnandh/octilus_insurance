@@ -18,3 +18,29 @@
   font-size: 20px;
   margin: 20px 20px 0px 0px;
 }
+h2 {
+  text-align: center;
+  padding: 20px;
+}
+p {
+  text-align: center;
+}
+
+.confirm_button {
+  background-color: rgb(10, 167, 114);
+  float: right;
+  margin: 30px 20px 20px 0px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 18px;
+}
+.cancel_button {
+  background-color: #c8192a;
+  float: right;
+  margin: 30px 20px 20px 0px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 18px;
+}

@@ -18,7 +18,7 @@ const FinalResultPage = () => {
         </>
       ) : (
         <>
-          <h2>Sorry Your Name is missing</h2>
+          <h2>Sorry...! Your Name is missing</h2>
         </>
       )}
     </>

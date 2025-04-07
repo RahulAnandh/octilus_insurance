@@ -5,7 +5,6 @@ const FinalResultPage = () => {
 
   return (
     <>
-      {console.log("1---1", insurance)}
       {insurance.personal_data_api_payload.data.txtLName &&
       insurance.personal_data_api_payload.data.txtFName &&
       insurance.personal_data_api_payload.data.lstSalutation ? (

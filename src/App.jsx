@@ -16,23 +16,302 @@ import {
   changeCollection,
   postPersonalData,
   postDemographicInformation,
+  setErrorMessages,
 } from "./features/insurance/insuranceSlice";
 
 function App() {
   const insurance = useSelector((state) => state.insurance);
   const dispatch = useDispatch();
-  const onFinish = (col) => {
-    if (col === 1) {
-      dispatch(postPersonalData(insurance.personal_data_api_payload));
-    } else if (col === 2) {
-      dispatch(
-        postDemographicInformation(
-          insurance.demographic_information_api_payload
+  const callErrorMessage = (error_name, error_text) => {
+    dispatch(setErrorMessages({ name: error_name, value: error_text }));
+  };
+  const callInputValidater = () => {
+    if (insurance.step === 1) {
+      if (insurance.personal_data_api_payload.data.lstSalutation.length == 0) {
+        callErrorMessage("error_lstSalutation", "Please select a title.");
+        return;
+      } else {
+        callErrorMessage("error_lstSalutation", "");
+      }
+      if (insurance.personal_data_api_payload.data.txtFName.length == 0) {
+        callErrorMessage("error_txtFName", "First name cannot be empty.");
+        return;
+      } else if (
+        !/^[a-zA-Z]+$/.test(insurance.personal_data_api_payload.data.txtFName)
+      ) {
+        callErrorMessage(
+          "error_txtFName",
+          "Cannot have characters or numbers besides letters."
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtFName", "");
+      }
+      if (insurance.personal_data_api_payload.data.txtLName.length == 0) {
+        callErrorMessage("error_txtLName", "Last name cannot be empty.");
+        return;
+      } else if (
+        !/^[a-zA-Z]+$/.test(insurance.personal_data_api_payload.data.txtLName)
+      ) {
+        callErrorMessage(
+          "error_txtLName",
+          "Cannot have characters or numbers besides letters."
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtLName", "");
+      }
+      if (insurance.personal_data_api_payload.data.birthday.length == 0) {
+        callErrorMessage("error_birthday", "Please select birthday.");
+        return;
+      } else {
+        callErrorMessage("error_birthday", "");
+      }
+      dispatch(changeStep(2));
+    }
+    if (insurance.step === 2) {
+      if (insurance.personal_data_api_payload.data.txtEmail.length == 0) {
+        callErrorMessage("error_txtEmail", "E-Mail cannot be empty.");
+        return;
+      } else if (
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+          insurance.personal_data_api_payload.data.txtEmail
         )
+      ) {
+        callErrorMessage("error_txtEmail", "E-Mail is not valid.");
+        return;
+      } else {
+        callErrorMessage("error_txtEmail", "");
+      }
+      if (insurance.personal_data_api_payload.data.txtPhone.length == 0) {
+        callErrorMessage("error_txtPhone", "Phone number cannot be empty.");
+        return;
+      } else if (
+        insurance.personal_data_api_payload.data.txtPhone.length < 10
+      ) {
+        callErrorMessage("error_txtPhone", "Phone number is below 10 numbers");
+        return;
+      } else if (
+        insurance.personal_data_api_payload.data.txtPhone.length > 10
+      ) {
+        callErrorMessage(
+          "error_txtPhone",
+          "Phone number is more than 10 numbers"
+        );
+        return;
+      } else if (
+        !/^[0-9]+$/.test(insurance.personal_data_api_payload.data.txtPhone)
+      ) {
+        callErrorMessage(
+          "error_txtPhone",
+          "Phone number cannot have Charecters or spechial charecters."
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtPhone", "");
+      }
+      dispatch(changeStep(3));
+    }
+    if (insurance.step === 3) {
+      if (insurance.personal_data_api_payload.data.txtPostCode.length == 0) {
+        callErrorMessage("error_txtPostCode", "Post code cannot be empty.");
+        return;
+      } else if (
+        !/^[A-Z0-9]+$/.test(
+          insurance.personal_data_api_payload.data.txtPostCode
+        )
+      ) {
+        callErrorMessage(
+          "error_txtPostCode",
+          "Post code should only contains capital letters and numbers"
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtPostCode", "");
+      }
+      if (
+        insurance.personal_data_api_payload.data.txtaddressline1.length == 0
+      ) {
+        callErrorMessage(
+          "error_txtaddressline1",
+          "Address line 1 cannot be empty.."
+        );
+        return;
+      } else if (
+        !/^[a-zA-Z0-9\s]+$/.test(
+          insurance.personal_data_api_payload.data.txtaddressline1
+        )
+      ) {
+        callErrorMessage(
+          "error_txtaddressline1",
+          "Address line 1 can have only numbers and letters."
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtaddressline1", "");
+      }
+      if (
+        insurance.personal_data_api_payload.data.txtaddressline2.length == 0
+      ) {
+        callErrorMessage(
+          "error_txtaddressline2",
+          "Address line 2 cannot be empty."
+        );
+        return;
+      } else if (
+        !/^[a-zA-Z0-9\s]+$/.test(
+          insurance.personal_data_api_payload.data.txtaddressline2
+        )
+      ) {
+        callErrorMessage(
+          "error_txtaddressline2",
+          "Address line 2 can have only numbers and letters."
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtaddressline2", "");
+      }
+      dispatch(changeStep(4));
+      dispatch(changeCollection(2));
+      dispatch(postPersonalData(insurance.personal_data_api_payload));
+    }
+    if (
+      insurance.step === 6 &&
+      insurance.demographic_information_api_payload.question_data.recommend ===
+        "Yes"
+    ) {
+      if (
+        insurance.demographic_information_api_payload.question_data.txtFirstName
+          .length == 0
+      ) {
+        callErrorMessage(
+          "error_txtFirstName_step6",
+          "First name cannot be empty."
+        );
+        return;
+      } else if (
+        !/^[a-zA-Z]+$/.test(
+          insurance.demographic_information_api_payload.question_data
+            .txtFirstName
+        )
+      ) {
+        callErrorMessage(
+          "error_txtFirstName_step6",
+          "First name cannot have Numbers or Special Charecters."
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtFirstName_step6", "");
+      }
+      if (
+        insurance.demographic_information_api_payload.question_data
+          .txtSecondName.length == 0
+      ) {
+        callErrorMessage(
+          "error_txtSecondName_step6",
+          "Second name cannot be empty."
+        );
+        return;
+      } else if (
+        !/^[a-zA-Z]+$/.test(
+          insurance.demographic_information_api_payload.question_data
+            .txtSecondName
+        )
+      ) {
+        callErrorMessage(
+          "error_txtSecondName_step6",
+          "Second name cannot have Numbers or Special Charecters."
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtPhoneNumber_step6", "");
+      }
+      if (
+        insurance.demographic_information_api_payload.question_data.txtEMail
+          .length == 0
+      ) {
+        callErrorMessage("error_txtEMail_step6", "E-Mail cannot be empty.");
+        return;
+      } else if (
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+          insurance.demographic_information_api_payload.question_data.txtEMail
+        )
+      ) {
+        callErrorMessage("error_txtEMail_step6", "E-Mail is not valid");
+        return;
+      } else {
+        callErrorMessage("error_txtEMail_step6", "");
+      }
+      if (
+        insurance.demographic_information_api_payload.question_data
+          .txtPhoneNumber.length == 0
+      ) {
+        callErrorMessage(
+          "error_txtPhoneNumber_step6",
+          "Phone number cannot be empty."
+        );
+        return;
+      } else if (
+        insurance.demographic_information_api_payload.question_data
+          .txtPhoneNumber.length < 10
+      ) {
+        callErrorMessage(
+          "error_txtPhoneNumber_step6",
+          "Phone number cannot be less than 10 digits"
+        );
+        return;
+      } else if (
+        insurance.demographic_information_api_payload.question_data
+          .txtPhoneNumber.length > 10
+      ) {
+        callErrorMessage(
+          "error_txtPhoneNumber_step6",
+          "Phone number cannot greater than 10 digits"
+        );
+        return;
+      } else if (
+        !/^[0-9]+$/.test(
+          insurance.demographic_information_api_payload.question_data
+            .txtPhoneNumber
+        )
+      ) {
+        callErrorMessage(
+          "error_txtPhoneNumber_step6",
+          "Phone number cannot have Charecters or spechial charecters."
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtPhoneNumber_step6", "");
+      }
+      dispatch(changeStep(7));
+      dispatch(changeCollection(3));
+      dispatch(
+        postDemographicInformation({
+          visitor_parameters: insurance.uuid,
+          question_data: {
+            txtFirstName:
+              insurance.demographic_information_api_payload.question_data
+                .txtFirstName,
+            txtSecondName:
+              insurance.demographic_information_api_payload.question_data
+                .txtSecondName,
+            txtEMail:
+              insurance.demographic_information_api_payload.question_data
+                .txtEMail,
+            txtPhoneNumber:
+              insurance.demographic_information_api_payload.question_data
+                .txtPhoneNumber,
+          },
+        })
       );
+    } else if (
+      insurance.demographic_information_api_payload.question_data.recommend ===
+      "No"
+    ) {
+      dispatch(changeStep(7));
+      dispatch(changeCollection(3));
     }
   };
-
   const steps_collection = [
     {
       key: 1,
@@ -189,18 +468,19 @@ function App() {
                             : "next-button-not-active "
                         }
                         onClick={() => {
-                          dispatch(changeStep(insurance.step + 1));
+                          insurance.step === 1 || insurance.step === 2
+                            ? callInputValidater()
+                            : dispatch(changeStep(insurance.step + 1));
                         }}
                       >
                         Next
                       </button>
                     )}
+                    {console.log("1---2", insurance)}
                     {obj.finish_button && (
                       <button
                         onClick={() => {
-                          dispatch(changeStep(insurance.step + 1));
-                          dispatch(changeCollection(insurance.collection + 1));
-                          onFinish(insurance.collection);
+                          callInputValidater();
                         }}
                         className={
                           obj.finish_button
@@ -216,10 +496,17 @@ function App() {
             </>
           );
         })}
-        {insurance.step === 7 && <DigitalSignature />}
-        {insurance.step === 8 && insurance.collection === 4 && (
-          <FinalResultPage />
+        {insurance.step === 7 && (
+          <div className="form-container">
+            <DigitalSignature />
+          </div>
         )}
+        {insurance.step === 8 && insurance.collection === 4 && (
+          <div className="form-container">
+            <FinalResultPage />
+          </div>
+        )}
+        {console.log("1---A", insurance)}
       </div>
     </div>
   );

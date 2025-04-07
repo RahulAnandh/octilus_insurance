@@ -6,7 +6,6 @@ import {
   postSignatureData,
   changeCollection,
   changeStep,
-  postVisitorParams,
 } from "../../../features/insurance/insuranceSlice";
 const DigitalSignature = () => {
   const sigCanvas = useRef(null);

@@ -62,7 +62,7 @@
   font-size: 20px;
 }
 .previous-button-active {
-  background-color: rgb(97, 97, 98);
+  background-color: rgb(177, 177, 178);
   color: #fff;
   border-radius: 5px;
   border: none;
@@ -70,10 +70,10 @@
   margin: 20px 0px 0px 0px;
 }
 .previous-button-active:hover {
-  background-color: rgb(60, 60, 60);
+  background-color: rgb(125, 125, 125);
 }
 .previous-button-not-active {
-  background-color: rgb(160, 160, 159);
+  background-color: rgb(223, 223, 223);
   color: #fff;
   border-radius: 5px;
   border: none;
@@ -110,7 +110,19 @@
   font-size: 20px;
   margin: 20px 0px 0px 0px;
 }
+.finish-button:hover {
+  background-color: rgb(6, 61, 171);
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  float: right;
+  font-size: 20px;
+  margin: 20px 0px 0px 0px;
+}
 
 .form-heading {
   text-align: center;
+}
+.input_card {
+  height: 90px;
 }

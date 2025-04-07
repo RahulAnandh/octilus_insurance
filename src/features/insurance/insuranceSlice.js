@@ -35,7 +35,6 @@ export const fetchIPAddress = createAsyncThunk(
 export const postVisitorParams = createAsyncThunk(
   "insurance/postVisitorParams",
   async (payload) => {
-    console.log("1---1", payload);
     const response = await fetch(
       "https://dev.octilus.in/machinetest/insurance_survey_api/visitors.php ",
       {
@@ -44,6 +43,7 @@ export const postVisitorParams = createAsyncThunk(
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(payload),
       }
     );
     const data = await response.json(payload);
@@ -117,6 +117,21 @@ const insuranceSlice = createSlice({
     status: "idle", // 'idle', 'loading', 'succeeded', 'failed'
     error: null,
     uuid: "",
+    form_error_messages: {
+      error_lstSalutation: "",
+      error_txtFName: "",
+      error_txtLName: "",
+      error_birthday: "",
+      error_txtEmail: "",
+      error_txtPhone: "",
+      error_txtPostCode: "",
+      error_txtaddressline1: "",
+      error_txtaddressline2: "",
+      error_txtFirstName_step6: "",
+      error_txtSecondName_step6: "",
+      error_txtEMail_step6: "",
+      error_txtPhoneNumber_step6: "",
+    },
     previos_address_active: false,
     uuid_manangement_api_payload: {
       visitor_parameters: { uuid: "" },
@@ -188,6 +203,10 @@ const insuranceSlice = createSlice({
       const { name, value } = action.payload;
       state.demographic_information_api_payload.question_data[name] = value;
     },
+    setErrorMessages: (state, action) => {
+      const { name, value } = action.payload;
+      state.form_error_messages[name] = value;
+    },
     setPreviousAddressActive: (state, action) => {
       if (action.payload === false) {
         state.personal_data_api_payload.data.txtPostPrevCode = "";
@@ -206,16 +225,16 @@ const insuranceSlice = createSlice({
       .addCase(fetchUUID.fulfilled, (state, action) => {
         state.status_uuid = true;
         state.status = "succeeded";
-        state.uuid = action.payload;
+        state.uuid = action.payload.uuid;
         state.uuid_manangement_api_payload.visitor_parameters.uuid =
-          action.payload;
+          action.payload.uuid;
 
         state.personal_data_api_payload.visitor_parameters.uuid =
-          action.payload;
+          action.payload.uuid;
         state.demographic_information_api_payload.visitor_parameters.uuid =
-          action.payload;
+          action.payload.uuid;
         state.signature_data_api_payload.visitor_parameters.uuid =
-          action.payload;
+          action.payload.uuid;
       })
       .addCase(fetchUUID.rejected, (state, action) => {
         state.status = "failed";
@@ -227,7 +246,6 @@ const insuranceSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchIPAddress.fulfilled, (state, action) => {
-        console.log(action.payload.data);
         state.status = "succeeded";
         state.uuid_manangement_api_payload.data.ip_address =
           action.payload.data;
@@ -298,5 +316,6 @@ export const {
   setPersonelData,
   setDemographicData,
   setPreviousAddressActive,
+  setErrorMessages,
 } = insuranceSlice.actions;
 export default insuranceSlice.reducer;

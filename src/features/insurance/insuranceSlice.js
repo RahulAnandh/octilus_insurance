@@ -131,6 +131,9 @@ const insuranceSlice = createSlice({
       error_txtSecondName_step6: "",
       error_txtEMail_step6: "",
       error_txtPhoneNumber_step6: "",
+      error_txtPostPrevCode: "",
+      error_txtPrevaddressline1: "",
+      error_txtPrevaddressline2: "",
     },
     previos_address_active: false,
     uuid_manangement_api_payload: {

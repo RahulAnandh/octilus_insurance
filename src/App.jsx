@@ -171,6 +171,73 @@ function App() {
       } else {
         callErrorMessage("error_txtaddressline2", "");
       }
+      if (insurance.previos_address_active) {
+        if (
+          insurance.personal_data_api_payload.data.txtPostPrevCode.length == 0
+        ) {
+          callErrorMessage(
+            "error_txtPostPrevCode",
+            "Previous Post code cannot be empty."
+          );
+          return;
+        } else if (
+          !/^[A-Z0-9]+$/.test(
+            insurance.personal_data_api_payload.data.txtPostPrevCode
+          )
+        ) {
+          callErrorMessage(
+            "error_txtPostPrevCode",
+            "Previous post code should only contains capital letters and numbers"
+          );
+          return;
+        } else {
+          callErrorMessage("error_txtPostPrevCode", "");
+        }
+        if (
+          insurance.personal_data_api_payload.data.txtPrevaddressline1.length ==
+          0
+        ) {
+          callErrorMessage(
+            "error_txtPrevaddressline1",
+            "Previous address line 1 cannot be empty.."
+          );
+          return;
+        } else if (
+          !/^[a-zA-Z0-9\s]+$/.test(
+            insurance.personal_data_api_payload.data.txtPrevaddressline1
+          )
+        ) {
+          callErrorMessage(
+            "error_txtPrevaddressline1",
+            "Previous Address line 1 can have only numbers and letters."
+          );
+          return;
+        } else {
+          callErrorMessage("error_txtPrevaddressline1", "");
+        }
+        if (
+          insurance.personal_data_api_payload.data.txtPrevaddressline2.length ==
+          0
+        ) {
+          callErrorMessage(
+            "error_txtPrevaddressline2",
+            "Previous Address line 2 cannot be empty."
+          );
+          return;
+        } else if (
+          !/^[a-zA-Z0-9\s]+$/.test(
+            insurance.personal_data_api_payload.data.txtPrevaddressline2
+          )
+        ) {
+          callErrorMessage(
+            "error_txtPrevaddressline2",
+            "Previous address line 2 can have only numbers and letters."
+          );
+          return;
+        } else {
+          callErrorMessage("error_txtPrevaddressline2", "");
+        }
+      }
       dispatch(changeStep(4));
       dispatch(changeCollection(2));
       dispatch(postPersonalData(insurance.personal_data_api_payload));

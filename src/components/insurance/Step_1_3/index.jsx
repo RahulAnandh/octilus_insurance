@@ -80,6 +80,9 @@ const Step_1_3 = () => {
                 name="txtPostPrevCode"
                 value={insurance.personal_data_api_payload.data.txtPostPrevCode}
               />
+              <div className="error_message">
+                {insurance.form_error_messages.error_txtPostPrevCode}
+              </div>
             </div>
             <div className="input_card">
               <label>Previous Address Line1</label>
@@ -93,6 +96,9 @@ const Step_1_3 = () => {
                   insurance.personal_data_api_payload.data.txtPrevaddressline1
                 }
               />
+              <div className="error_message">
+                {insurance.form_error_messages.error_txtPrevaddressline1}
+              </div>
             </div>
             <div className="input_card">
               <label>Previous Address Line1</label>
@@ -106,6 +112,9 @@ const Step_1_3 = () => {
                   insurance.personal_data_api_payload.data.txtPrevaddressline2
                 }
               />
+              <div className="error_message">
+                {insurance.form_error_messages.error_txtPrevaddressline2}
+              </div>
             </div>
             <button
               className="address-button"
